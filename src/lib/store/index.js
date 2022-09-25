@@ -7,7 +7,7 @@ export const board = writable([
   [2, 3, 9, 10, 11, 4, 5],
   [null, null, null, 12, null, null, null],
   [null, null, null, 6, null, null, null],
-  [null, null, null, 7, null, null, null]
+  [null, null, null, 7, null, null, null],
 ])
 
 export const selected = writable(null)
