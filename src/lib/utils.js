@@ -152,3 +152,56 @@ export const isLegal = (brd, w, x, y, z) => {
   return false
 }
 
+/**
+  * See if the latest move removes any pieces from the board
+  * 
+  * @param b { Array<Array<number|null>> } the board
+  * @param y { number } the x coord
+  * @param z { number } the y coord
+  *
+  * @returns Array<Array<number|null>>
+  */
+export const removePiece = (b, y, z) => {
+  if (y + 2 < 7) {
+    if (isWhite(b[y][z]) && isBlack(b[y + 1][z]) && (isWhite(b[y + 2][z]) || isCorner(y + 2, z))) {
+      b[y + 1][z] = null
+    }
+
+    if (isBlack(b[y][z]) && isWhite(b[y + 1][z]) && (isBlack(b[y + 2][z]) || isCorner(y + 2, z))) {
+      b[y + 1][z] = null
+    }
+  }
+
+  if (y - 2 > -1) {
+    if (isWhite(b[y][z]) && isBlack(b[y - 1][z]) && (isWhite(b[y - 2][z]) || isCorner(y - 2, z))) {
+      b[y - 1][z] = null
+    }
+
+    if (isBlack(b[y][z]) && isWhite(b[y - 1][z]) && (isBlack(b[y - 2][z]) || isCorner(y - 2, z))) {
+      b[y - 1][z] = null
+    }
+  }
+
+  if (z + 2 < 7) {
+    if (isWhite(b[y][z]) && isBlack(b[y][z + 1]) && (isWhite(b[y][z + 2]) || isCorner(y, z + 2))) {
+      b[y][z + 1] = null
+    }
+
+    if (isBlack(b[y][z]) && isWhite(b[y][z + 1]) && (isBlack(b[y][z + 2]) || isCorner(y, z + 2))) {
+      b[y][z + 1] = null
+    }
+  }
+
+  if (z - 2 > -1) {
+    if (isWhite(b[y][z]) && isBlack(b[y][z - 1]) && (isWhite(b[y][z - 2]) || isCorner(y, z - 2))) {
+      b[y][z - 1] = null
+    }
+
+    if (isBlack(b[y][z]) && isWhite(b[y][z - 1]) && (isBlack(b[y][z - 2]) || isCorner(y, z - 2))) {
+      b[y][z - 1] = null
+    }
+  }
+
+  return b
+}
+

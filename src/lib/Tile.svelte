@@ -19,7 +19,8 @@
         isBlack,
         isCorner,
         isLegal,
-    } from './utils.js'
+        removePiece
+    } from './utils'
 
     export let type = '';
     export let pid = 0;
@@ -55,45 +56,11 @@
                 if (isLegal(b, w, x, y, z)) {
                     b[y][z] = b[w][x]
                     b[w][x] = null
-                    if (y + 2 < 7) {
-                        if (isWhite(b[y][z]) && isBlack(b[y+1][z]) && (isWhite(b[y+2][z]) || isCorner(y+2, z))) {
-                            b[y+1][z] = null
-                        }
-                        if (isBlack(b[y][z]) && isWhite(b[y+1][z]) && (isBlack(b[y+2][z]) || isCorner(y+2, z))) {
-                            b[y+1][z] = null
-                        }
-                    }
-
-                    if (y - 2 > -1) {
-                        if (isWhite(b[y][z]) && isBlack(b[y-1][z]) && (isWhite(b[y-2][z]) || isCorner(y-2, z))) {
-                            b[y-1][z] = null
-                        }
-
-                        if (isBlack(b[y][z]) && isWhite(b[y-1][z]) && (isBlack(b[y-2][z]) || isCorner(y-2, z))) {
-                            b[y-1][z] = null
-                        }
-                    }
-
-                    if (z + 2 < 7) {
-                        if (isWhite(b[y][z]) && isBlack(b[y][z+1]) && (isWhite(b[y][z+2]) || isCorner(y, z+2))) {
-                            b[y][z+1] = null
-                        }
-
-                        if (isBlack(b[y][z]) && isWhite(b[y][z+1]) && (isBlack(b[y][z+2]) || isCorner(y, z+2))) {
-                            b[y][z+1] = null
-                        }
-                    }
-
-                    if (z - 2 > -1) {
-                        if (isWhite(b[y][z]) && isBlack(b[y][z-1]) && (isWhite(b[y][z-2]) || isCorner(y, z-2))) {
-                            b[y][z-1] = null
-                        }
-
-                        if (isBlack(b[y][z]) && isWhite(b[y][z-1]) && (isBlack(b[y][z-2]) || isCorner(y, z-2))) {
-                            b[y][z-1] = null
-                        }
-                    }
+                    
+                    b = removePiece(b, y, z)
+                    
                     turn.update(t => !t)
+
                 }
                 return b
             })
